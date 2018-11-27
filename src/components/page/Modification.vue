@@ -160,7 +160,7 @@ export default {
             height: 400px;
             position: relative;
             left: 50%;
-            top: 80px;
+            top: 40px;
             margin-left: -250px;
             p{
                 margin-bottom: 10px;

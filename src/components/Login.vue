@@ -104,11 +104,41 @@ export default {
                 this.value2 = this.$cookies.get('rememberUser').password //设置密码
                 this.single = this.$cookies.get('rememberUser').single //设置是否记住密码
             }
+        },
+        checkToken(){
+        // if(this.$cookies.isKey('token') == false){
+        //   this.$router.push({name : 'Login'})
+        // }
+        let url = IP +'/computercultrue/index.php/teacher/login/valid_token'
+            let params = {
+                token: this.$cookies.get('token')
+            }
+        $hutn.httptokenGet(url, params, (data)=>{
+            if(data.code === 1){
+                // this.$Modal.warning({
+                //     title: '警告',
+                //     content: '<p>用户信息过期，请重新登陆</p>',
+                //     onOk: () => {
+                //         this.$router.push({name : 'Login'})
+                //     }
+                // });
+                this.$router.push({name : 'ExamPage'})
+            }
+        },(error)=>{
+            this.$Modal.warning({
+                title: '警告',
+                content: '<p>网页错误，请稍后重试。</p>',
+                onOk: () => {
+                this.$router.push({name : 'Login'})
+                }
+            });
+        })
         }
     },
     mounted(){
         // this.toHome();
         this.setUserLogin()
+        this.checkToken()
     }
 }
 </script>
